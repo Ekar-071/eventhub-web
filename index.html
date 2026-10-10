@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EventHub</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+  <header class="bg-indigo-700 text-white">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-2">
+      <h1 class="text-xl font-bold">EventHub</h1>
+      <div class="flex items-center gap-2 text-sm">
+        <label for="apiUrl" class="sr-only">URL de l'API</label>
+        <input id="apiUrl" class="rounded px-2 py-1 text-slate-800" value="http://localhost:8000">
+        <span id="userBadge" class="hidden"></span>
+        <button id="logoutBtn" class="hidden underline">Déconnexion</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-6 space-y-8">
+    <p id="message" role="status" class="hidden rounded px-3 py-2 text-sm"></p>
+
+    <section id="authSection" class="bg-white rounded-lg shadow p-4">
+      <h2 class="font-semibold mb-3">Connexion / Inscription</h2>
+      <form id="authForm" class="grid gap-2 sm:grid-cols-3">
+        <input id="email" type="email" placeholder="Email" required class="border rounded px-2 py-1">
+        <input id="password" type="password" placeholder="Mot de passe (8 car. min.)" minlength="8" required class="border rounded px-2 py-1">
+        <div class="flex gap-2">
+          <button type="submit" data-action="login" class="bg-indigo-600 text-white rounded px-3 py-1">Se connecter</button>
+          <button type="submit" data-action="register" class="border border-indigo-600 text-indigo-700 rounded px-3 py-1">Créer un compte</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="createSection" class="hidden bg-white rounded-lg shadow p-4">
+      <h2 class="font-semibold mb-3">Créer un événement</h2>
+      <form id="eventForm" class="grid gap-2 sm:grid-cols-2">
+        <input id="title" placeholder="Titre" required maxlength="200" class="border rounded px-2 py-1">
+        <input id="location" placeholder="Lieu" maxlength="200" class="border rounded px-2 py-1">
+        <input id="startsAt" type="datetime-local" required class="border rounded px-2 py-1">
+        <input id="capacity" type="number" min="1" value="50" required class="border rounded px-2 py-1">
+        <textarea id="description" placeholder="Description" maxlength="2000" class="border rounded px-2 py-1 sm:col-span-2"></textarea>
+        <button type="submit" class="bg-indigo-600 text-white rounded px-3 py-1 sm:col-span-2">Publier</button>
+      </form>
+    </section>
+
+    <section>
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="font-semibold">Événements</h2>
+        <input id="search" type="search" placeholder="Rechercher…" class="border rounded px-2 py-1 text-sm">
+      </div>
+      <ul id="events" class="grid gap-3 sm:grid-cols-2"></ul>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
